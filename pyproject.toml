@@ -12,7 +12,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.6"
 dependencies = [
   "PyYAML~=6.0.1",  
   "kubernetes~=29.0.0",
@@ -28,8 +28,8 @@ dependencies = [
 online-eks-cross-az = "online_eks_cross_az.cli:main"
 
 [build-system]
-requires = ["setuptools>=61", "setuptools-scm"]
+requires = ["setuptools>=59", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-data]
-"online_eks_cross_az" = ["*.yaml"]
+"online_eks_cross_az" = ["*.yaml", "*.sql"]

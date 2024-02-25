@@ -4,12 +4,12 @@ from online_eks_cross_az.lib import CrossAzLogger
 
 # manually run for now
 
-class TestInc(unittest.TestCase):
 
+class TestInc(unittest.TestCase):
     # def test_setup(self):
     #     cal = CrossAzLogger()
     #     cal.setup_clients()
-        
+
     # def test_cred(self):
     #     cal = CrossAzLogger()
     #     cal.setup_clients()
