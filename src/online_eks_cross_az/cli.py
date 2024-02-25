@@ -4,6 +4,8 @@ import argparse
 import subprocess
 import sys
 
+from wakepy import keep
+
 from .lib import CrossAzLogger
 
 
@@ -39,10 +41,6 @@ def main():
 
     args = parser.parse_args()
 
-    if "darwin" in sys.platform:
-        print("Running 'caffeinate' on MacOSX to prevent the system from sleeping...")
-        subprocess.Popen("caffeinate")
-
     try:
         cazl = CrossAzLogger(
             accumulation_minutes=args.minutes,
@@ -72,7 +70,8 @@ def main():
             if validation.strip().lower() == "n":
                 print("Aborting...", flush=True)
                 return 0
-        cazl.run()
+        with keep.running() as _k:
+            cazl.run()
 
     except Exception as e:
         print(f"Exception while running script: {e}")
