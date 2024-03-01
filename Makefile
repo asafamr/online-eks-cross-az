@@ -12,3 +12,7 @@ ruff:
 
 build: pre
 	pipx run build
+
+publish: build
+	pipx run twine upload dist/*
+	
