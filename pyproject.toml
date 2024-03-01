@@ -1,6 +1,6 @@
 [project]
 name = "quick_eks_cross_az"
-version = "0.1.0"
+version = "0.9.1"
 description = "Quick EKS corss-AZ log"
 authors = [
   { name = "Asaf Amrmi", email = "asaf.amrami@gmail.com" },
@@ -29,8 +29,6 @@ dependencies = [
 quick-eks-cross-az = "quick_eks_cross_az.cli:main"
 
 [build-system]
-requires = ["setuptools>=59", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.setuptools.package-data]
-"quick_eks_cross_az" = ["*.yaml", "*.sql"]
