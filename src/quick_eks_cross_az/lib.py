@@ -26,7 +26,7 @@ class CrossAzLogger:
         accumulation_minutes=5,
         verbose=False,
         output_file_name="./cross-az.csv",
-        cf_stack_name="online-eks-cross-az",
+        cf_stack_name="quick-eks-cross-az",
     ) -> None:
         self.accumulation_minutes = accumulation_minutes
         self.verbose = verbose

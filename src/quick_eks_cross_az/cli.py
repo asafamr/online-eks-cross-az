@@ -35,7 +35,7 @@ def main():
         "--stack-name",
         action=argparse.BooleanOptionalAction,
         help="override CloudFormation stack name",
-        default="online-eks-cross-az",
+        default="quick-eks-cross-az",
     )
 
     args = parser.parse_args()
