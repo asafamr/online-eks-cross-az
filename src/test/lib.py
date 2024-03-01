@@ -1,6 +1,6 @@
 import unittest
 
-from online_eks_cross_az.lib import CrossAzLogger
+from quick_eks_cross_az.lib import CrossAzLogger
 
 # manually run for now
 

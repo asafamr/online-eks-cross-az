@@ -1,7 +1,6 @@
 """Console script for the_answer_asaf."""
 
 import argparse
-import subprocess
 import sys
 
 from wakepy import keep
