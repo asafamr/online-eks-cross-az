@@ -53,23 +53,21 @@ docker run  -v ~/.kube/config:/kube/config -e KUBECONFIG=/kube/config -e AWS_ACC
 ## CLI
 
 ```
-usage: cli.py [-h] [--minutes N] [--quiet | --no-quiet] [--verbose | --no-verbose]
-              [--cleanup | --no-cleanup] [--output OUTPUT] [--stack-name STACK_NAME]
+usage: cli.py [-h] [--minutes N] [--quiet | --no-quiet] [--verbose | --no-verbose] [--cleanup]
+              [--output OUTPUT] [--stack-name STACK_NAME]
 
-Quick EKS Cross AZ Log
---------
-This script measures EKS cross AZ traffic using flow logs and data from active Kubernetes context.
-Full docs are here: https://github.com/asafamr/quick-eks-cross-az 
+Quick EKS Cross AZ Log. This script measures cross-AZ (Cross Availability Zone) traffic for EKS (Elastic
+Kubernetes Service) using flow logs and data from the active Kubernetes context. It can be used to
+estimate associated costs. Full docs are here: https://github.com/asafamr/quick-eks-cross-az
 
 options:
   -h, --help            show this help message and exit
-  --minutes N           minutes of flow logs accumulation
-  --quiet, --no-quiet   run without manual confirmation
+  --minutes N           set the duration for flow logs accumulation in minutes (default: 15)
+  --quiet, --no-quiet   run without manual confirmation (default: False)
   --verbose, --no-verbose
-                        verbose log
-  --cleanup, --no-cleanup
-                        cleanup a previous interrupted run
-  --output OUTPUT       output file name
+                        verbose log (default: False)
+  --cleanup             clean up a previous interrupted run (default: False)
+  --output OUTPUT       specify output file name (default: cross-az.csv)
   --stack-name STACK_NAME
-                        override CloudFormation stack name
+                        override CloudFormation stack name (default: quick-eks-cross-az
 ```
