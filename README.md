@@ -1,6 +1,6 @@
 # Quick EKS cross az
 
-This project is based on [existing AWS open solution](https://aws.amazon.com/blogs/containers/getting-visibility-into-your-amazon-eks-cross-az-pod-to-pod-network-bytes/).
+This project is based on an [existing AWS open solution](https://aws.amazon.com/blogs/containers/getting-visibility-into-your-amazon-eks-cross-az-pod-to-pod-network-bytes/).
 It simplifies operations by using your current AWS role directly from your shell session, and without using any iam:* permission...
 
 
@@ -38,10 +38,30 @@ Similar to the original solution, this project utilizes CloudFormation to provis
 Easiest way to run the script is with [pipx](https://github.com/pypa/pipx). Pipx lets you run Python packages quickly in isolation:
 
 ```bash
-python3 -m pip install --user pipx
-python3 -m pipx run quick-eks-cross-az
+python3 -m pip install --user pipx # install pipx if required
+python3 -m pipx run quick-eks-cross-az --help
 ```
-
 
 #### Using Docker
 [TODO]
+
+
+## CLI
+
+```
+usage: cli.py [-h] [--minutes N] [--quiet | --no-quiet] [--verbose | --no-verbose]
+              [--cleanup | --no-cleanup] [--output | --no-output] [--stack-name | --no-stack-name]
+
+options:
+  -h, --help            show this help message and exit
+  --minutes N           minutes of flow logs accumulation
+  --quiet, --no-quiet   run without manual confirmation
+  --verbose, --no-verbose
+                        verbose log
+  --cleanup, --no-cleanup
+                        cleanup a previous interrupted run
+  --output, --no-output
+                        output file name
+  --stack-name, --no-stack-name
+                        override CloudFormation stack name
+```

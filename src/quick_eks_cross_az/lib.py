@@ -1,3 +1,4 @@
+import collections
 import csv
 import json
 import os
@@ -198,6 +199,8 @@ class CrossAzLogger:
                 )
                 sp.ok()
 
+            self.print_summary(self.output_file_name)
+
             with spinner(text="Cleaning up deployment...") as sp:
                 self.cleanup_and_delete_cf_stack(self.cf_stack_name)
                 sp.ok()
@@ -315,6 +318,32 @@ class CrossAzLogger:
             if "does not exist" not in str(e):
                 raise (e)
         return stack_exists
+
+    def print_summary(self, filename):
+        agg = collections.Counter()
+        with open(filename, "r") as fin:
+            csv_reader = csv.DictReader(fin)
+            for row in csv_reader:
+                agg[row.get("inter_az_traffic", "UNKNOWN")] += int(row.get("total_bytes", 0))
+
+        def sizeof_fmt(num, suffix="B"):
+            # https://stackoverflow.com/a/1094933
+            for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
+                if abs(num) < 1024.0:
+                    if num > 10:
+                        return f"{num:3.0f} {unit}{suffix}"
+                    return f"{num:3.1f} {unit}{suffix}"
+
+                num /= 1024.0
+            return f"{num:.1f}Yi{suffix}"
+
+        print("SUMMARY:\n------------")
+        print(f"TOTAL: {sizeof_fmt(agg.total())}")
+        print("TOP APPS:")
+        for app, bytes in agg.most_common(10):
+            frac = bytes / agg.total()
+            hashes = "#" * int(19 * frac)
+            print(f"{app[:29] : <30}: [{hashes : <20}] {sizeof_fmt(bytes)} ({frac:.0%})")
 
     def deploy_cf_stack(self, cf_spec, stack_name, cf_params={}):
         stack_exists = self.is_stack_exists(stack_name)

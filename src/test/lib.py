@@ -42,10 +42,14 @@ class TestInc(unittest.TestCase):
     #     cal.upload_pod_ips("asaf-temp-test")
     #     cal.cleanup_and_delete_cf_stack("asaf-temp-test")
 
-    def test_run(self):
+    # def test_run(self):
+    #     cal = CrossAzLogger(verbose=True)
+    #     cal.setup_clients()
+    #     cal.run()
+
+    def test_summary(self):
         cal = CrossAzLogger(verbose=True)
-        cal.setup_clients()
-        cal.run()
+        cal.print_summary("cross-az.csv")
 
     # def test_athena(self):
     #     cal = CrossAzLogger(verbose=True)
