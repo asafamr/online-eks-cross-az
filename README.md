@@ -1,6 +1,7 @@
-# Quick EKS cross az
+# Quick EKS cross az 
+This script helps estimating cross az data transfer costs in EKS clusters.
 
-This project is based on an [existing AWS open solution](https://aws.amazon.com/blogs/containers/getting-visibility-into-your-amazon-eks-cross-az-pod-to-pod-network-bytes/).
+The script is based on an [existing AWS open solution](https://aws.amazon.com/blogs/containers/getting-visibility-into-your-amazon-eks-cross-az-pod-to-pod-network-bytes/).
 It simplifies operations by using your current AWS role directly from your shell session, and without using any iam:* permission...
 
 
@@ -43,14 +44,22 @@ python3 -m pipx run quick-eks-cross-az --help
 ```
 
 #### Using Docker
-[TODO]
+```bash
+docker run  -v ~/.kube/config:/kube/config -e KUBECONFIG=/kube/config -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN  asafamr123/quick-eks-cross-az --help
+```
+
 
 
 ## CLI
 
 ```
 usage: cli.py [-h] [--minutes N] [--quiet | --no-quiet] [--verbose | --no-verbose]
-              [--cleanup | --no-cleanup] [--output | --no-output] [--stack-name | --no-stack-name]
+              [--cleanup | --no-cleanup] [--output OUTPUT] [--stack-name STACK_NAME]
+
+Quick EKS Cross AZ Log
+--------
+This script measures EKS cross AZ traffic using flow logs and data from active Kubernetes context.
+Full docs are here: https://github.com/asafamr/quick-eks-cross-az 
 
 options:
   -h, --help            show this help message and exit
@@ -60,8 +69,7 @@ options:
                         verbose log
   --cleanup, --no-cleanup
                         cleanup a previous interrupted run
-  --output, --no-output
-                        output file name
-  --stack-name, --no-stack-name
+  --output OUTPUT       output file name
+  --stack-name STACK_NAME
                         override CloudFormation stack name
 ```

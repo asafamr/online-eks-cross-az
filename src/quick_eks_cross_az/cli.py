@@ -35,36 +35,35 @@ def main():
     parser = argparse.ArgumentParser(
         description=dedent(
             """
-                Quick EKS Cross AZ Log
-                --------
-                This script measures EKS cross AZ traffic using flow logs and data from active Kubernetes context.
+                Quick EKS Cross AZ Log.
+                This script measures cross-AZ (Cross Availability Zone) traffic for EKS (Elastic Kubernetes Service) using flow logs and data from the active Kubernetes context.
+                It can be used to estimate associated costs.
                 Full docs are here: https://github.com/asafamr/quick-eks-cross-az 
                 """
         ),
-        formatter_class=argparse.RawTextHelpFormatter,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    parser.add_argument("--minutes", metavar="N", type=int, default=15, help="minutes of flow logs accumulation")
+    parser.add_argument("--minutes", metavar="N", type=int, default=15, help="set the duration for flow logs accumulation in minutes")
     parser.add_argument(
         "--quiet",
+        default=False,
         action=argparse.BooleanOptionalAction,
         help="run without manual confirmation",
     )
-    parser.add_argument("--verbose", action=argparse.BooleanOptionalAction, help="verbose log")
+    parser.add_argument("--verbose", default=False,action=argparse.BooleanOptionalAction, help="verbose log")
     parser.add_argument(
         "--cleanup",
-        action=argparse.BooleanOptionalAction,
-        help="cleanup a previous interrupted run",
+        action='store_true',
+        help="clean up a previous interrupted run",
     )
     parser.add_argument(
         "--output",
-        action=argparse.BooleanOptionalAction,
-        help="output file name",
+        help="specify output file name",
         default="cross-az.csv",
     )
     parser.add_argument(
         "--stack-name",
-        action=argparse.BooleanOptionalAction,
         help="override CloudFormation stack name",
         default="quick-eks-cross-az",
     )
@@ -83,8 +82,8 @@ def main():
         if not credentials_ok:
             return 1
         if args.cleanup:
-            print("Cleaning up...", flush=True)
-            cazl.cleanup_and_delete_cf_stack()
+            print("cleaning up...", flush=True)
+            cazl.cleanup_and_delete_cf_stack(args.stack_name)
             return 0
         cluster_name = cazl.get_cluster_name_from_kube_context()
         if not args.quiet:
@@ -100,13 +99,13 @@ def main():
             )
             validation = input()
             if validation.strip().lower() == "n":
-                print("Aborting...", flush=True)
+                print("aborting...", flush=True)
                 return 0
         with keep.running() as _k:
             cazl.run()
 
     except Exception as e:
-        print(f"Exception while running script: {e}")
+        print(f"exception while running script: {e}")
         return 1
     return 0
 
