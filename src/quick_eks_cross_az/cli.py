@@ -44,17 +44,19 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    parser.add_argument("--minutes", metavar="N", type=int, default=15, help="set the duration for flow logs accumulation in minutes")
+    parser.add_argument(
+        "--minutes", metavar="N", type=int, default=15, help="set the duration for flow logs accumulation in minutes"
+    )
     parser.add_argument(
         "--quiet",
         default=False,
         action=argparse.BooleanOptionalAction,
         help="run without manual confirmation",
     )
-    parser.add_argument("--verbose", default=False,action=argparse.BooleanOptionalAction, help="verbose log")
+    parser.add_argument("--verbose", default=False, action=argparse.BooleanOptionalAction, help="verbose log")
     parser.add_argument(
         "--cleanup",
-        action='store_true',
+        action="store_true",
         help="clean up a previous interrupted run",
     )
     parser.add_argument(
